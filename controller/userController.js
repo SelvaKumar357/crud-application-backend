@@ -16,7 +16,8 @@ export const createUser = async (req, res) => {
     const newUser = new User({ name, email, address });
     const savedData = await newUser.save();
 
-    res.status(201).send(savedData);
+    // res.status(201).send(savedData);
+    res.status(200).json({message: "User Created Successfully...."})
   } catch (error) {
     res.status(500).send({ errorMessage: error.message });
   }
@@ -55,7 +56,7 @@ export const updateUser = async(req,res) =>{
     const id = req.params.id;
     const userExist = await User.findById(id);
   if(!userExist){
-    return res.status(404).staus.send({message: "User Not Exists"})
+    return res.status(404).send({message: "User Not Exists"})
   }
   const updatedData = await User.findByIdAndUpdate(id, req.body, {
     new: true
